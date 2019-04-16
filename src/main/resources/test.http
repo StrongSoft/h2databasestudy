@@ -1,0 +1,10 @@
+POST http://localhost:8080/board/notice
+Content-Type: multipart/form-data
+
+{
+"author": "이승민",
+  "title": "첫번째 공지사항입니다.",
+  "content": "열심히 합시다."
+}
+
+###

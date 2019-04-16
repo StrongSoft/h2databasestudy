@@ -11,10 +11,10 @@ import java.util.Date;
  */
 @Entity
 public class Board {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Date creatdedAt;
+    private Date createdAt;
 
     public Board(){
 
@@ -28,7 +28,20 @@ public class Board {
         return name;
     }
 
-    public Date getCreatdedAt() {
-        return creatdedAt;
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Post write(String author, String title, String content){
+        return  new Post(this,author,title,content);
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

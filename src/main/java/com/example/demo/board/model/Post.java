@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 public class Post {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String author;
     private String title;
@@ -21,11 +21,23 @@ public class Post {
 
     }
 
-    protected Post(String author, String title, String content, Board board) {
+    protected Post(Board board, String author, String title, String content) {
         this.author = author;
         this.title = title;
         this.createdAt = new Date();
         this.content = content;
         this.board = board;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                ", board=" + board +
+                '}';
     }
 }

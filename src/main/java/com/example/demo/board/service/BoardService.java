@@ -3,6 +3,7 @@ package com.example.demo.board.service;
 import com.example.demo.board.exception.BoardNotFoundException;
 import com.example.demo.board.model.Board;
 import com.example.demo.board.model.Post;
+import com.example.demo.board.model.PostForm;
 import com.example.demo.board.repository.BoardRepository;
 import com.example.demo.board.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,11 @@ public class BoardService {
     private Optional<Post> setPost(long postId){
         Optional<Post> post = postRepository.findById(postId);
         return post;
+    }
+
+    public Post writePost(String boardname, PostForm postForm){
+        Board board   = findBoard(boardname);
+        Post post = board.write(postForm.getAuthor(),postForm.getTitle(),postForm.getContent());
+        return postRepository.save(post);
     }
 }

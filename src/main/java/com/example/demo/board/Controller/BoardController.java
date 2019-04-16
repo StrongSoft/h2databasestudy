@@ -3,6 +3,7 @@ package com.example.demo.board.Controller;
 import com.example.demo.board.exception.ResourceNotFoundException;
 import com.example.demo.board.model.Board;
 import com.example.demo.board.model.Post;
+import com.example.demo.board.model.PostForm;
 import com.example.demo.board.service.BoardService;
 import com.example.demo.board.support.MessageSourceAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 /**
@@ -39,8 +41,13 @@ public class BoardController {
 
     @RequestMapping(value = "/{boardname}", method = {RequestMethod.GET, RequestMethod.HEAD})
     public ResponseEntity<Board> free(@PathVariable String boardname) {
-        System.out.println(boardname);
+        System.out.println("boardname : "+boardname);
         return ResponseEntity.ok(boardService.findBoard(boardname));
+    }
+
+    @RequestMapping(value = "/{boardname}", method = {RequestMethod.POST})
+    public ResponseEntity<Post> creatPost(@PathVariable String boardname, @Valid PostForm postForm){
+        return ResponseEntity.status(HttpStatus.CREATED).body(boardService.writePost(boardname,postForm));
     }
 
     @RequestMapping(value = "/{boardname}/list", method = {RequestMethod.GET, RequestMethod.HEAD})
